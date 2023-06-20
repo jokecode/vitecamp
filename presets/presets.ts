@@ -8,10 +8,11 @@ import IconsResolver from 'unplugin-icons/resolver';
 import { ElementPlusResolver, VueUseComponentsResolver } from 'unplugin-vue-components/resolvers';
 import WindiCSS from 'vite-plugin-windicss';
 import Markdown from 'vite-plugin-vue-markdown'
-import Prism from 'markdown-it-prism';
-import ViteFonts from 'vite-plugin-fonts';
-import VueI18n from '@intlify/vite-plugin-vue-i18n';
-import LinkAttributes from 'markdown-it-link-attributes';
+import LinkAttributes from 'markdown-it-link-attributes'
+import Shiki from 'markdown-it-shiki'
+import Unfonts from 'unplugin-fonts/vite'
+import VueI18n from '@intlify/unplugin-vue-i18n/vite'
+import VueDevTools from 'vite-plugin-vue-devtools';
 import { ConfigEnv } from 'vite';
 import { resolve } from 'path';
 
@@ -19,6 +20,8 @@ const defaultClasses = 'prose prose-sm m-auto text-left';
 
 export default (env: ConfigEnv) => {
   return [
+    // https://github.com/webfansplz/vite-plugin-vue-devtools
+    VueDevTools(),
     vue({
       include: [/\.vue$/, /\.md$/],
     }),
@@ -48,12 +51,15 @@ export default (env: ConfigEnv) => {
       compiler: 'vue3',
       autoInstall: true,
     }),
-    ViteFonts({
+    Unfonts({
       google: {
         families: ['Open Sans', 'Montserrat', 'Fira Sans'],
       },
     }),
     VueI18n({
+      runtimeOnly: true,
+      compositionOnly: true,
+      fullInstall: true,
       include: [resolve(__dirname, '../locales/**')],
     }),
     WindiCSS({
@@ -61,10 +67,15 @@ export default (env: ConfigEnv) => {
     }),
     Markdown({
       wrapperClasses: defaultClasses,
-      headEnabled: false,
+      headEnabled: true,
       markdownItSetup(md) {
         // https://prismjs.com/
-        md.use(Prism);
+        md.use(Shiki, {
+          theme: {
+            light: 'vitesse-light',
+            dark: 'vitesse-dark',
+          },
+        })
         // 为 md 中的所有链接设置为 新页面跳转
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
@@ -72,7 +83,7 @@ export default (env: ConfigEnv) => {
             target: '_blank',
             rel: 'noopener',
           },
-        });
+        })
       },
     }),
   ];

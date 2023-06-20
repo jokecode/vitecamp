@@ -41,13 +41,23 @@ export default defineConfig((env) => {
       minify: 'esbuild',
       assetsDir: 'static/assets',
       // 静态资源打包到dist下的不同目录
-      rollupOptions: {
-        output: {
-          chunkFileNames: 'static/js/[name]-[hash].js',
-          entryFileNames: 'static/js/[name]-[hash].js',
-          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
-        },
-      },
+      // rollupOptions: {
+      //   // output: {
+      //   //   chunkFileNames: 'static/js/[name]-[hash].js',
+      //   //   entryFileNames: 'static/js/[name]-[hash].js',
+      //   //   assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+      //   // },
+      //   makeAbsoluteExternalsRelative: true,
+      //   preserveEntrySignatures: 'strict',
+      //   output: {
+      //     esModule: true,
+      //     generatedCode: {
+      //       reservedNamesAsProps: false
+      //     },
+      //     interop: 'compat',
+      //     systemNullSetters: false
+      //   }
+      // },
     },
     css: {
       preprocessorOptions: {

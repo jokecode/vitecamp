@@ -88,7 +88,7 @@
 ### 克隆到本地
 
 ```bash
-git clone https://github.com/nekobc1998923/vitecamp.git my-vitecamp-app
+git clone XXXXXX
 cd my-vitecamp-app
 pnpm i
 ```

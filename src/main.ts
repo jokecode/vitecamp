@@ -1,6 +1,5 @@
 // i18n
-import { createI18n } from 'vue-i18n';
-import messages from '@intlify/vite-plugin-vue-i18n/messages';
+import { createI18n } from 'vue-i18n'
 // vue router
 import router from '@/router/index';
 // pinia
@@ -13,8 +12,9 @@ import 'virtual:windi-devtools';
 import '@/assets/styles/index.scss';
 
 const i18n = createI18n({
-  locale: 'en',
-  messages,
+  legacy: false,
+  locale: 'zh-CN',
+  messages: {},
 });
 
 const app = createApp(App);
