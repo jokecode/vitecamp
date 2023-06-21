@@ -32,7 +32,7 @@ ElNotification({
 });
 const featureList = [
   {
-    name: 'Vite3',
+    name: 'Vite4',
     href: 'https://github.com/vitejs/vite',
   },
   {
